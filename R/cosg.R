@@ -14,7 +14,7 @@ select_top_n<-function(scores,n_top){
 #' Marker gene identification for cell groups in a given dataset.
 #'
 #' @param assay Assay to use in marker gene identification
-#' @param slot Slot to pull data from
+#' @param layer layer to pull data from
 #' @param mu The penalty factor to penalize gene expression in cells not belonging to the cluster of interest
 #' @param n_genes_user Number of top ranked genes returned in the result
 #' @return A list containing two dataframes for ranked marker genes' names and scores, respectively
@@ -30,7 +30,7 @@ select_top_n<-function(scores,n_top){
 #'  pbmc_small,
 #'  groups='all',
 #'  assay='RNA',
-#'  slot='data',
+#'  layer='data',
 #'  mu=1,
 #'  n_genes_user=100)
 #' #######
@@ -42,7 +42,7 @@ cosg<-function(
     object,
     groups='all',
     assay='RNA',
-    slot='data',
+    layer='data',
     mu=1,
     remove_lowly_expressed=TRUE,
     expressed_pct=0.1,
@@ -50,7 +50,7 @@ cosg<-function(
 ){
    
     ### Obtain the cellxgene data
-    genexcell<-Seurat::GetAssayData(object = object[[assay]], slot = slot)
+    genexcell<-Seurat::GetAssayData(object = object[[assay]], layer = layer)
 
     if (length(groups)>1){
         object <- subset(x = object, idents = groups)
